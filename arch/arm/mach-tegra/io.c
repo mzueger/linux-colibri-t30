@@ -32,6 +32,10 @@
 
 #include "board.h"
 
+#define IO_AHB_GMI_PHYS 0x48000000
+#define IO_AHB_GMI_VIRT 0xFEF00000
+#define IO_AHB_GMI_SIZE SZ_1M
+
 static struct map_desc tegra_io_desc[] __initdata = {
 	{
 		.virtual = IO_PPSB_VIRT,
@@ -85,6 +89,12 @@ static struct map_desc tegra_io_desc[] __initdata = {
 		.virtual = IO_PCIE_VIRT,
 		.pfn = __phys_to_pfn(IO_PCIE_PHYS),
 		.length = IO_PCIE_SIZE,
+		.type = MT_DEVICE,
+	},
+	{
+		.virtual = IO_AHB_GMI_VIRT,
+		.pfn = __phys_to_pfn(IO_AHB_GMI_PHYS),
+		.length = IO_AHB_GMI_SIZE,
 		.type = MT_DEVICE,
 	}
 };
